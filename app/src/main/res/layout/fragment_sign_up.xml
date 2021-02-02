@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.SignUpFragment">
+    tools:context=".ui.signUp.SignUpFragment">
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/userName"
         android:inputType="textPersonName"
-        android:hint="Enter Email"
+        android:hint="Enter UserName"
         android:layout_marginTop="122dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"

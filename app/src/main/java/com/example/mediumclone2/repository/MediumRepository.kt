@@ -53,7 +53,7 @@ class MediumRepository @Inject constructor(
         userDao.delete()
     }
 
-    suspend fun getUser(): UserEntity {
+    suspend fun getUser(): UserEntity? {
         return userDao.getUsers()
     }
 }

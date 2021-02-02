@@ -15,5 +15,5 @@ interface UserDao {
     suspend fun delete()
 
     @Query("SELECT *FROM user_table")
-    suspend fun getUsers():UserEntity
+    suspend fun getUsers():UserEntity?
 }

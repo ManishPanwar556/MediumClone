@@ -7,15 +7,15 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import javax.inject.Singleton
 
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 class RetrofitModule {
     @Provides
     @Singleton
@@ -31,14 +31,14 @@ class RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideMediumApiService(retrofit: Retrofit.Builder): MediumApiService {
-        return retrofit.build()
+    fun provideMediumApiService(gson:Gson,retrofit: Retrofit.Builder): MediumApiService {
+        return retrofit.addConverterFactory(GsonConverterFactory.create(gson)).build()
             .create(MediumApiService::class.java)
     }
 
-    @Singleton
     @Provides
-    fun provideAuthenticationService(retrofit: Retrofit.Builder): MediumAuthenticationService {
-        return retrofit.build().create(MediumAuthenticationService::class.java)
+    @Singleton
+    fun provideAuthenticationService(gson:Gson,retrofit: Retrofit.Builder): MediumAuthenticationService {
+        return retrofit.addConverterFactory(GsonConverterFactory.create(gson)).build().create(MediumAuthenticationService::class.java)
     }
 }

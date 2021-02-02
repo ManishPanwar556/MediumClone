@@ -7,21 +7,24 @@ import com.example.mediumclone2.repository.MediumRepository
 import com.example.mediumclone2.retrofit.models.articles.Article
 import com.example.mediumclone2.retrofit.models.user.UserLogIn
 import com.example.mediumclone2.retrofit.models.user.UserRegister
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
+@HiltViewModel
 class MediumViewModel
-@ViewModelInject constructor(
+ @Inject constructor(
     private val repository: MediumRepository,
-    @Assisted private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    private var _isSignInSuccess = MutableLiveData<Boolean>()
-    val isSignInSuccess: LiveData<Boolean>
-        get() = _isSignInSuccess
-    private var _isSignUpSuccess = MutableLiveData<Boolean>()
-    val isSignUpSuccess: LiveData<Boolean>
-        get() = _isSignUpSuccess
+    private var _userNotNull = MutableLiveData<Boolean>()
+    val notNull: LiveData<Boolean>
+        get() = _userNotNull
+    private var _userNull = MutableLiveData<Boolean>()
+    val userNull: LiveData<Boolean>
+        get() = _userNull
     private var _articles = MutableLiveData<List<Article>>()
     val articles: LiveData<List<Article>>
         get() = _articles
@@ -41,25 +44,16 @@ class MediumViewModel
         }
     }
 
-    fun signIn(userLogIn: UserLogIn) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val res = repository.logInUser(userLogIn)
-            if (res.isSuccessful) {
-                res.body()?.let {
-                    _isSignInSuccess.postValue(true)
-                }
-            }
-        }
-    }
-    fun signUp(userRegister: UserRegister){
-        viewModelScope.launch(Dispatchers.IO) {
-            val res=repository.signUpUser(userRegister)
-            if(res.isSuccessful){
-                res.body()?.let {
-                    _isSignUpSuccess.postValue(true)
-                }
-            }
-        }
-    }
+  fun getUser(){
+      viewModelScope.launch(Dispatchers.IO) {
+          val user=repository.getUser()
+          if(user!=null){
+              _userNotNull.postValue(true)
+          }
+          else{
+              _userNull.postValue(true)
+          }
+      }
+  }
 
 }

@@ -1,13 +1,17 @@
 package com.example.mediumclone2.retrofit.models.articles
 
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import java.io.Serializable
+
 
 data class Article(
     @Json(name = "author")
     val author: Author,
     @Json(name = "body")
-    val body: String,
+    val body: String?,
     @Json(name = "createdAt")
     val createdAt: String,
     @Json(name = "description")

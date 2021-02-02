@@ -2,6 +2,7 @@ package com.example.mediumclone2.retrofit.models.article
 
 
 import com.squareup.moshi.Json
+import java.io.Serializable
 
 data class Article(
     @Json(name = "author")
@@ -24,4 +25,4 @@ data class Article(
     val title: String,
     @Json(name = "updatedAt")
     val updatedAt: String
-)
+):Serializable

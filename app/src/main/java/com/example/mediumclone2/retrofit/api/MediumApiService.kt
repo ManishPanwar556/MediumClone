@@ -10,12 +10,13 @@ import retrofit2.http.Query
 interface MediumApiService {
 
     @GET("articles")
-    suspend fun getListOfArticles(
+    suspend fun getListOfArticlesWithTag(
         @Query("tag") tag: String? = null,
         @Query("author") author: String? = null,
         @Query("favorited") favorited: String? = null
     ): Response<MultipleArticles>
-
+    @GET("articles")
+    suspend fun getListOfArticles(): Response<MultipleArticles>
     @GET("articles/{slug}")
     suspend fun getArticle(@Path("slug") slug:String):Response<SingleArticle>
 }
