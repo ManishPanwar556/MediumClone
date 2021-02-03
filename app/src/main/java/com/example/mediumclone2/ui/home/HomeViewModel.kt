@@ -3,6 +3,7 @@ package com.example.mediumclone2.ui.home
 import androidx.lifecycle.*
 import com.example.mediumclone2.repository.MediumRepository
 import com.example.mediumclone2.retrofit.models.articles.Article
+import com.example.mediumclone2.retrofit.models.postArticle.ArticlePost
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +19,9 @@ class HomeViewModel
 ):ViewModel(){
 
     private var _articles=MutableLiveData<List<Article>>()
-
+    private var _postArticleSuccess=MutableLiveData<Boolean>()
+    val postArticleSuccess:LiveData<Boolean>
+    get() = _postArticleSuccess
     val articles:LiveData<List<Article>>
     get() = _articles
 
@@ -32,6 +35,17 @@ class HomeViewModel
             if(res.isSuccessful){
                 res.body()?.let {
                     _articles.postValue(it.articles)
+                }
+            }
+        }
+    }
+    fun postArticle(articlePost: ArticlePost){
+        viewModelScope.launch(Dispatchers.IO) {
+            val user=repository.getUser()
+            val res=repository.postArticle(articlePost,"Token ${user?.token}")
+            if(res.isSuccessful){
+                res.body()?.let{
+                    _postArticleSuccess.postValue(true)
                 }
             }
         }

@@ -12,9 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MediumClone2">
+        <activity android:name=".ui.articlesFeed.ArticlesFeedActivity"></activity>
+        <activity android:name=".ui.home.ArticlePostActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.home.HomeActivity" />
+        </activity>
         <activity android:name=".ui.home.ArticleActivity">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.home.HomeActivity"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.home.HomeActivity" />
         </activity>
         <activity android:name=".ui.home.HomeActivity" />
         <activity android:name=".ui.MainActivity">

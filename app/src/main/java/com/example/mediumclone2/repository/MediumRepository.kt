@@ -5,6 +5,7 @@ import com.example.mediumclone2.retrofit.api.MediumAuthenticationService
 import com.example.mediumclone2.retrofit.models.article.SingleArticle
 import com.example.mediumclone2.retrofit.models.articles.Article
 import com.example.mediumclone2.retrofit.models.articles.MultipleArticles
+import com.example.mediumclone2.retrofit.models.postArticle.ArticlePost
 import com.example.mediumclone2.retrofit.models.user.Profile
 import com.example.mediumclone2.retrofit.models.user.UserAuthentication
 import com.example.mediumclone2.retrofit.models.user.UserLogIn
@@ -55,5 +56,11 @@ class MediumRepository @Inject constructor(
 
     suspend fun getUser(): UserEntity? {
         return userDao.getUsers()
+    }
+    suspend fun postArticle(articlePost: ArticlePost,token: String):Response<SingleArticle>{
+        return authenticationService.postArticle(articlePost,token)
+    }
+    suspend fun feedArticles(token: String):Response<MultipleArticles>{
+        return authenticationService.feedArticles(token)
     }
 }

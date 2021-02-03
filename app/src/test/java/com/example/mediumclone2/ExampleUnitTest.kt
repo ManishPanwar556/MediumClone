@@ -2,6 +2,8 @@ package com.example.mediumclone2
 
 import com.example.mediumclone2.retrofit.api.MediumApiService
 import com.example.mediumclone2.retrofit.api.MediumAuthenticationService
+import com.example.mediumclone2.retrofit.models.postArticle.Article
+import com.example.mediumclone2.retrofit.models.postArticle.ArticlePost
 import com.example.mediumclone2.retrofit.models.user.*
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -82,7 +84,15 @@ class ExampleUnitTest {
             assertNotNull(res.body()?.user)
         }
     }
-
+    @Test
+    fun postArticle(){
+        runBlocking{
+            val article=Article("Hello","Hello World", listOf<String>(),"New World")
+            val articlePost=ArticlePost(article)
+            val res=authenticationService.postArticle(articlePost,"Token $token")
+            assertNotNull(res.body()?.article)
+        }
+    }
     @Test
     fun getProfile() {
         runBlocking {
@@ -90,5 +100,13 @@ class ExampleUnitTest {
             assertNotNull(res.body()?.profile)
         }
     }
+    @Test
+    fun feedArticles(){
+        runBlocking {
+            val res=authenticationService.feedArticles("Token $token")
+            assertNotNull(res.body()?.articles)
+        }
+    }
+
 
 }

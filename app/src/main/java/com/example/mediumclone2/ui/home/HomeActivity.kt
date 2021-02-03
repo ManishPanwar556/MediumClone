@@ -3,6 +3,9 @@ package com.example.mediumclone2.ui.home
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import androidx.activity.viewModels
@@ -13,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mediumclone2.R
 import com.example.mediumclone2.interfaces.HomeClickInterface
 import com.example.mediumclone2.retrofit.models.articles.Article
+import com.example.mediumclone2.ui.articlesFeed.ArticlesFeedActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.Serializable
 
@@ -22,7 +27,7 @@ private val viewModel:HomeViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
+        val addArticleBtn=findViewById<FloatingActionButton>(R.id.addArticleBtn)
         val homeAdapter=HomeRecyclerAdapter(this)
         val rev=findViewById<RecyclerView>(R.id.homeRev)
         val progressBar=findViewById<ProgressBar>(R.id.homeProgressBar)
@@ -35,6 +40,10 @@ private val viewModel:HomeViewModel by viewModels()
                 progressBar.visibility=View.GONE
             }
         })
+        addArticleBtn.setOnClickListener {
+            val intent=Intent(this,ArticlePostActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onClick(article: Article,view: View) {
@@ -48,4 +57,21 @@ private val viewModel:HomeViewModel by viewModels()
         startActivity(intent,activityOptionsCompat.toBundle())
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_item,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.logOut->{
+
+            }
+            R.id.feedArticles->{
+                val intent=Intent(this,ArticlesFeedActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        return true
+    }
 }
