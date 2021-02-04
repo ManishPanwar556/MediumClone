@@ -2,6 +2,7 @@ package com.example.mediumclone2.ui.articlesFeed
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -21,6 +22,7 @@ class ArticlesFeedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_articles_feed)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val progressBar=findViewById<ProgressBar>(R.id.feedProgressBar)
         val rev=findViewById<RecyclerView>(R.id.feedArticlesRev)
         val textView=findViewById<TextView>(R.id.feedTextView)
@@ -39,5 +41,10 @@ class ArticlesFeedActivity : AppCompatActivity() {
                 rev.visibility=View.GONE
             }
         })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        finish()
+        return true
     }
 }

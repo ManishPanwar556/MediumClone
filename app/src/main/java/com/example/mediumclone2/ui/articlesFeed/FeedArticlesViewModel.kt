@@ -23,7 +23,11 @@ class FeedArticlesViewModel
     val empty: LiveData<Boolean>
         get() = _empty
 
-    fun feedArticles() {
+    init {
+        feedArticles()
+    }
+
+    private fun feedArticles() {
         viewModelScope.launch(Dispatchers.IO) {
             val user = repository.getUser()
             val token = user?.token

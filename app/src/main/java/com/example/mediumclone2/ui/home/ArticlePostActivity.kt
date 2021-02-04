@@ -3,6 +3,7 @@ package com.example.mediumclone2.ui.home
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -43,5 +44,10 @@ class ArticlePostActivity : AppCompatActivity() {
                 Toast.makeText(this, "Fields Cannot be empty", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        finish()
+        return true
     }
 }

@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.mediumclone2.R
 import com.example.mediumclone2.retrofit.models.user.UserRegister
 import com.example.mediumclone2.retrofit.models.user.UserX
@@ -21,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SignUpFragment : Fragment() {
 
-private val viewModel:SignUpViewModel by requireActivity().viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,6 +39,7 @@ private val viewModel:SignUpViewModel by requireActivity().viewModels()
         val email=view.findViewById<EditText>(R.id.email)
         val password=view.findViewById<EditText>(R.id.password)
         val transaction=activity?.supportFragmentManager?.beginTransaction()
+        val viewModel=ViewModelProvider(requireActivity()).get(SignUpViewModel::class.java)
         signUpBtn.setOnClickListener {
             if(email.text.isNotEmpty()&&name.text.isNotEmpty()&&password.text.isNotEmpty()){
                 val userX= UserX(email.text.toString(),password.text.toString(),name.text.toString())

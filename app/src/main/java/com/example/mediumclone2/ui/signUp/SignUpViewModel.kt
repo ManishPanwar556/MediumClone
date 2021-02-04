@@ -4,12 +4,13 @@ import androidx.lifecycle.*
 import com.example.mediumclone2.repository.MediumRepository
 import com.example.mediumclone2.retrofit.models.user.UserRegister
 import com.example.mediumclone2.room.UserEntity
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@ViewModelScoped
+@HiltViewModel
 class SignUpViewModel
 @Inject constructor(
     private val repository: MediumRepository,

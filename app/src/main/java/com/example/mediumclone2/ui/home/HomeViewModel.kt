@@ -24,6 +24,9 @@ class HomeViewModel
     get() = _postArticleSuccess
     val articles:LiveData<List<Article>>
     get() = _articles
+    private var _logoutStatus=MutableLiveData<Boolean>()
+    val logoutStatus:LiveData<Boolean>
+    get()=_logoutStatus
 
 
     init {
@@ -48,6 +51,12 @@ class HomeViewModel
                     _postArticleSuccess.postValue(true)
                 }
             }
+        }
+    }
+    fun logout(){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteUser()
+            _logoutStatus.postValue(true)
         }
     }
 }

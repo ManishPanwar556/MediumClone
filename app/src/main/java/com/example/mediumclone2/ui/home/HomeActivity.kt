@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mediumclone2.R
 import com.example.mediumclone2.interfaces.HomeClickInterface
 import com.example.mediumclone2.retrofit.models.articles.Article
+import com.example.mediumclone2.ui.MainActivity
 import com.example.mediumclone2.ui.articlesFeed.ArticlesFeedActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,6 +39,13 @@ private val viewModel:HomeViewModel by viewModels()
                 homeAdapter.setData(it)
                 rev.visibility= View.VISIBLE
                 progressBar.visibility=View.GONE
+            }
+        })
+        viewModel.logoutStatus.observe(this,Observer{
+            if(it){
+                val intent=Intent(this,MainActivity::class.java)
+                startActivity(intent)
+                finish()
             }
         })
         addArticleBtn.setOnClickListener {
@@ -65,7 +73,7 @@ private val viewModel:HomeViewModel by viewModels()
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.logOut->{
-
+                viewModel.logout()
             }
             R.id.feedArticles->{
                 val intent=Intent(this,ArticlesFeedActivity::class.java)

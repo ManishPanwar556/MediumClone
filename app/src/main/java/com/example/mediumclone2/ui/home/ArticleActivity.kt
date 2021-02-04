@@ -26,4 +26,9 @@ class ArticleActivity : AppCompatActivity() {
         descriptionTextView.text=description
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        finish()
+        return true
+    }
+
 }

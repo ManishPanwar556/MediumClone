@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mediumclone2.R
 import com.example.mediumclone2.retrofit.models.articles.Article
+import java.text.DateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class ArticlesRecyclerAdapter:RecyclerView.Adapter<ArticlesRecyclerAdapter.MyViewHolder>() {
@@ -53,10 +56,13 @@ class ArticlesRecyclerAdapter:RecyclerView.Adapter<ArticlesRecyclerAdapter.MyVie
         val titleTextView = holder.view.findViewById<TextView>(R.id.homeTitle)
         val descriptionTextView = holder.view.findViewById<TextView>(R.id.homeDescription)
         val profile = holder.view.findViewById<ImageView>(R.id.userProfile)
+        val createdAt=holder.view.findViewById<TextView>(R.id.postDate)
         nameTextView.text = oldData[position].author.username
         titleTextView.text = oldData[position].title
         descriptionTextView.text = oldData[position].description
         Glide.with(holder.view).load(oldData[position].author.image).into(profile)
+        createdAt.text=oldData[position].createdAt
+
     }
 
     override fun getItemCount() = oldData.size
